@@ -61,3 +61,25 @@ Dans ce guide, je partage les étapes détaillées que j'ai suivies pour mettre 
 - Traite et transfère les données de journalisation vers Elasticsearch.
 - Reçoit des données sur le port `5044`.
 - Dépend d'Elasticsearch.
+
+### Prometheus
+
+- Collecte et stocke les métriques sous forme de séries temporelles.
+- Configuré pour gratter les métriques de différents services.
+- Accessible sur le port `9090`.
+
+### Node Exporter
+
+- Expose les métriques du système d'un hôte pour la collecte par Prometheus.
+- Exposé sur le port `9100`.
+
+### cAdvisor
+
+- Fournit des métriques sur l'utilisation des ressources et les performances des conteneurs.
+- Exposé sur le port `8080`.
+
+### Grafana
+
+- Permet la visualisation des données de monitoring à partir de sources telles que Prometheus.
+- Accessible sur le port `3000`.
+- Les identifiants par défaut sont configurés via les variables d'environnement dans le fichier `docker-compose.yml`.
