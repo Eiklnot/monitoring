@@ -83,3 +83,9 @@ Dans ce guide, je partage les étapes détaillées que j'ai suivies pour mettre 
 - Permet la visualisation des données de monitoring à partir de sources telles que Prometheus.
 - Accessible sur le port `3000`.
 - Les identifiants par défaut sont configurés via les variables d'environnement dans le fichier `docker-compose.yml`.
+
+### Metricbeat
+
+- Collecte les métriques du système et les envoie vers Elasticsearch.
+- Configuré via le fichier `metricbeat/metricbeat.yml`.
+- Dépend d'Elasticsearch et Kibana pour le stockage et la visualisation des données.
