@@ -34,3 +34,30 @@ Dans ce guide, je partage les étapes détaillées que j'ai suivies pour mettre 
   ```bash
   sudo docker-compose ps
   ```
+
+## Commandes Utilisées
+
+- **Elasticsearch**: Accessible via [http://localhost:9200](http://localhost:9200).
+- **Kibana**: Interface disponible sur [http://localhost:5601](http://localhost:5601).
+- **Logstash**: Reçoit des données sur le port `5044`.
+- **Prometheus**: Grattage des métriques configuré sur le port `9090`.
+- **Grafana**: Connecté à [http://localhost:3000](http://localhost:3000) pour visualiser les métriques, avec les identifiants `admin` / `password`.
+
+## Détails sur la Configuration des Services
+
+### Elasticsearch
+
+- Stocke les données collectées pour une recherche et une analyse rapide.
+- Accessible sur le port `9200`.
+
+### Kibana
+
+- Offre une interface utilisateur pour visualiser les données stockées dans Elasticsearch.
+- Dépend d'Elasticsearch pour fonctionner correctement.
+- Accessible sur le port `5601`.
+
+### Logstash
+
+- Traite et transfère les données de journalisation vers Elasticsearch.
+- Reçoit des données sur le port `5044`.
+- Dépend d'Elasticsearch.
