@@ -89,3 +89,9 @@ Dans ce guide, je partage les étapes détaillées que j'ai suivies pour mettre 
 - Collecte les métriques du système et les envoie vers Elasticsearch.
 - Configuré via le fichier `metricbeat/metricbeat.yml`.
 - Dépend d'Elasticsearch et Kibana pour le stockage et la visualisation des données.
+
+## Bonnes Pratiques à Suivre
+
+- **Sécurité**: Il faut changer les mots de passe par défaut et utiliser des variables d'environnement ou des fichiers secrets pour sécuriser les informations sensibles.
+- **Maintenance**: Il est nécessaire de mettre régulièrement à jour les images de vos services afin de bénéficier des dernières corrections de sécurité et améliorations de fonctionnalités.
+- **Surveillance des Performances**: Il est recommandé d'exploiter les outils disponibles (comme Kibana et Grafana) pour monitorer activement la santé et les performances de votre
