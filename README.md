@@ -62,6 +62,12 @@ Dans ce guide, je partage les étapes détaillées que j'ai suivies pour mettre 
 - Reçoit des données sur le port `5044`.
 - Dépend d'Elasticsearch.
 
+### Metricbeat
+
+- Collecte les métriques du système et les envoie vers Elasticsearch.
+- Configuré via le fichier `metricbeat/metricbeat.yml`.
+- Dépend d'Elasticsearch et Kibana pour le stockage et la visualisation des données.
+
 ### Prometheus
 
 - Collecte et stocke les métriques sous forme de séries temporelles.
@@ -84,11 +90,64 @@ Dans ce guide, je partage les étapes détaillées que j'ai suivies pour mettre 
 - Accessible sur le port `3000`.
 - Les identifiants par défaut sont configurés via les variables d'environnement dans le fichier `docker-compose.yml`.
 
-### Metricbeat
 
-- Collecte les métriques du système et les envoie vers Elasticsearch.
-- Configuré via le fichier `metricbeat/metricbeat.yml`.
-- Dépend d'Elasticsearch et Kibana pour le stockage et la visualisation des données.
+## Intégration de Loki et Promtail pour la Gestion des Logs
+
+J'ai choisi d'intégrer **Loki** et **Promtail** dans mon système de monitoring pour une gestion efficace des logs. Voici comment j'ai procédé :
+
+### Loki
+
+J'utilise **Loki** pour centraliser la gestion des logs. Ce système de gestion de logs est non seulement scalable et hautement disponible, mais il est également conçu pour être coût-efficace et facile à utiliser. Grâce à son intégration directe avec Grafana, je peux visualiser les logs de manière intuitive.
+
+- Accessible via le port `3100`.
+- J'ai configuré un volume nommé `loki-data` pour stocker les données de logs, assurant ainsi leur persistance.
+
+### Promtail
+
+Pour acheminer les logs vers Loki, j'ai mis en place **Promtail**. En tant qu'agent, Promtail surveille les fichiers de logs et les envoie à Loki. Grâce à cela, je bénéficie d'une gestion centralisée des logs qui complète mon système de monitoring.
+
+- Promtail est déjà configuré pour surveiller les fichiers dans `/var/log` et `/var/lib/docker/containers`. Le fichier `./promtail-config.yml`, que j'ai préparé à l'avance, spécifie les sources de logs et leur traitement.
+
+### Mise en place dans mon système de monitoring
+
+La configuration et le lancement de Loki et Promtail ont été réalisés via mon fichier `docker-compose.yml`. Pour Loki, j'ai spécifié l'utilisation de l'image `grafana/loki:latest` et mappé le port `3100` pour y accéder facilement. Les données de logs sont persistées grâce au volume `loki-data`.
+
+Pour Promtail, étant donné que mon fichier `promtail-config.yml` était déjà configuré, j'ai simplement veillé à ce que Promtail soit correctement lié à Loki pour envoyer les logs collectés.
+
+Cette intégration
+
+## Fonctionnement de l'ELK Stack
+
+L'ELK Stack est une suite de trois outils open-source, Elasticsearch, Logstash et Kibana, qui ensemble fournissent une solution puissante pour le traitement, le stockage et la visualisation des données en temps réel.
+
+**Elasticsearch**
+C'est un moteur de recherche et d'analyse distribué, capable de traiter de grandes quantités de données structurées et non structurées en temps réel. Il stocke les données et permet des recherches complexes à haute vitesse.
+
+**Logstash**
+C'est un pipeline de traitement de données côté serveur qui ingère des données de diverses sources, les transforme selon des filtres configurables et les expédie vers un ou plusieurs stocks de données, dont Elasticsearch. Il est très flexible et supporte de nombreux types d'entrées, de filtres et de sorties.
+
+**Kibana**
+C'est une interface utilisateur web pour visualiser les données d'Elasticsearch. Kibana permet de créer des tableaux de bord dynamiques qui permettent d'explorer et de visualiser les données en temps réel.
+
+Le processus général commence par la collecte de données (logs, métriques, etc.) par Logstash, qui les traite et les envoie à Elasticsearch pour le stockage. Kibana est ensuite utilisé pour interroger et visualiser ces données, permettant aux utilisateurs de découvrir des insights et des tendances dans les données presque en temps réel.
+
+## Fonctionnement de Grafana
+
+Grafana est utilisé pour visualiser et analyser les données de monitoring en temps réel, provenant de sources telles que Prometheus, cAdvisor, Node Exporter, et Loki. Chaque outil joue un rôle spécifique dans l'écosystème de monitoring :
+
+**Prometheus** 
+collecte et stocke les métriques sous forme de séries temporelles, permettant le monitoring de la santé des services et l'utilisation des ressources.
+
+**cAdvisor**
+ fournit des métriques sur les performances et l'utilisation des ressources par les conteneurs, qui sont collectées par Prometheus.
+
+**Node Exporter**
+ expose les métriques systèmes des serveurs, telles que l'utilisation du CPU et de la mémoire, à Prometheus.
+
+**Loki**
+ gère les logs, permettant leur analyse en corrélation avec les métriques collectées par Prometheus.
+
+En combinant ces outils, Grafana offre une plateforme unifiée pour visualiser à la fois les métriques et les logs, facilitant ainsi le diagnostic et le monitoring en profondeur des infrastructures IT et des applications.
 
 ## Bonnes Pratiques à Suivre
 
