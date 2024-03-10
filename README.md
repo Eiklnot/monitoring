@@ -149,6 +149,20 @@ collecte et stocke les métriques sous forme de séries temporelles, permettant 
 
 En combinant ces outils, Grafana offre une plateforme unifiée pour visualiser à la fois les métriques et les logs, facilitant ainsi le diagnostic et le monitoring en profondeur des infrastructures IT et des applications.
 
+## Comparaison entre ELK Stack et Grafana
+
+| Caractéristique | ELK Stack | Grafana |
+|-----------------|-----------|---------|
+| **Composants principaux** | Elasticsearch, Logstash, Kibana | Grafana, prometheus, cAdvisor, node exporter, Loki et Promtail |
+| **Fonction principal** | Traitement et visualisation de logs | Visualisation de données de monitoring |
+| **Sources de données** | Principalement des logs (avec Beats pour la collecte de données) | Diverses sources (Prometheus, InfluxDB, Elasticsearch, etc.) |
+| **Visualisation** | Kibana offre des tableaux de bord et des visualisations pour explorer les données d'Elasticsearch | Création de tableaux de bord interactifs à partir de multiples sources de données |
+| **Gestion des logs** | Excellente, avec des capacités avancées de recherche et d'indexation | Dépend des plugins et des sources de données externes comme Loki pour les logs |
+| **Monitoring de performance** | Focalisation sur l'analyse des logs, mais capable de monitoring via des plugins comme Metricbeat | Fortement axé sur le monitoring de performance et les métriques en temps réel |
+
+
+
+
 ## Bonnes Pratiques à Suivre
 
 - **Sécurité**: Il faut changer les mots de passe par défaut et utiliser des variables d'environnement ou des fichiers secrets pour sécuriser les informations sensibles.
